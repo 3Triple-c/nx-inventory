@@ -1,0 +1,31 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+
+    "strict": true,
+
+    // "baseUrl": ".",
+
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+
+    "skipLibCheck": true,
+
+    // "paths": {
+    //   "@nx-inventory/auth/*": [
+    //     "packages/auth/src/*"
+    //   ],
+    //   "@nx-inventory/database/*": [
+    //     "packages/database/src/*"
+    //   ],
+    //   "@nx-inventory/shared/*": [
+    //     "packages/shared/src/*"
+    //   ],
+    //   "@nx-inventory/ui/*": [
+    //     "packages/ui/src/*"
+    //   ]
+    // }
+  }
+}
