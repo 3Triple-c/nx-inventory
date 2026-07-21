@@ -85,7 +85,7 @@ importers:
 
   packages/notifications: {}
 
-  packages/organisation: {}
+  packages/organization: {}
 
   packages/permissions: {}
 

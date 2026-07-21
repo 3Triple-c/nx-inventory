@@ -1,5 +1,5 @@
 {
-  "name": "@nx-inventory/organisation",
+  "name": "@nx-inventory/organization",
   "private": true,
   "type": "module",
   "exports": {
