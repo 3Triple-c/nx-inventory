@@ -1,0 +1,43 @@
+model Transfer {
+  id String @id @default(cuid())
+
+  businessId      String
+  fromWarehouseId String
+  toWarehouseId   String
+
+  transferNumber String @unique
+
+  status TransferStatus @default(DRAFT)
+
+  note String?
+
+  createdById String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  business      Business  @relation(fields: [businessId], references: [id])
+  fromWarehouse Warehouse @relation("TransferFrom", fields: [fromWarehouseId], references: [id])
+  toWarehouse   Warehouse @relation("TransferTo", fields: [toWarehouseId], references: [id])
+  createdBy     User      @relation(fields: [createdById], references: [id])
+
+  items TransferItem[]
+
+  @@index([businessId, status])
+}
+
+model TransferItem {
+  id String @id @default(cuid())
+
+  transferId String
+  variantId  String
+  batchId    String?
+
+  quantity Decimal
+
+  transfer Transfer       @relation(fields: [transferId], references: [id])
+  variant  ProductVariant @relation(fields: [variantId], references: [id])
+  batch    ProductBatch?  @relation(fields: [batchId], references: [id])
+
+  @@index([transferId])
+}

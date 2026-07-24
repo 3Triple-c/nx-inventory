@@ -1,0 +1,12 @@
+// Placeholders for the future Finance module — not modeled yet.
+model Expense {
+  id String @id @default(cuid())
+}
+
+model Income {
+  id String @id @default(cuid())
+}
+
+model Account {
+  id String @id @default(cuid())
+}

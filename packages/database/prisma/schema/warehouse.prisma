@@ -1,0 +1,26 @@
+model Warehouse {
+  id String @id @default(cuid())
+
+  businessId String
+
+  name    String
+  address String?
+  phone   String?
+
+  createdAt DateTime @default(now())
+
+  business Business @relation(fields: [businessId], references: [id])
+
+  stocks    Stock[]
+  movements StockMovement[]
+  purchases Purchase[]
+  batches   ProductBatch[]
+  sales     Sale[]
+
+  outgoingTransfers Transfer[] @relation("TransferFrom")
+  incomingTransfers Transfer[] @relation("TransferTo")
+
+  adjustments Adjustment[]
+
+  @@index([businessId])
+}
