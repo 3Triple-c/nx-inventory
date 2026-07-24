@@ -1,0 +1,143 @@
+// ___________________________________________
+// ENUMS
+// ___________________________________________
+
+enum BusinessType {
+  GENERIC
+
+  PHARMACY
+  SUPERMARKET
+  RESTAURANT
+  BAKERY
+  WAREHOUSE
+
+  POULTRY
+  FISHERY
+  LIVESTOCK
+  CROP_FARM
+
+  HOSPITAL
+  HOTEL
+  MANUFACTURING
+  HARDWARE
+  ELECTRONICS
+  FASHION
+}
+
+enum BusinessStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum UserRole {
+  OWNER
+  ADMIN
+  MANAGER
+  STAFF
+}
+
+enum MovementType {
+  PURCHASE
+  SALE
+  RETURN_IN
+  RETURN_OUT
+  TRANSFER_IN
+  TRANSFER_OUT
+  ADJUSTMENT_IN
+  ADJUSTMENT_OUT
+  DAMAGE
+  EXPIRED
+  PRODUCTION
+  CONSUMPTION
+  LOST
+  OPENING_STOCK
+}
+
+enum ReferenceType {
+  PURCHASE
+  SALE
+  TRANSFER
+  RETURN
+  ADJUSTMENT
+  PRODUCTION
+  CONSUMPTION
+  OPENING_STOCK
+}
+
+enum AdjustmentType {
+  STOCK_COUNT
+  DAMAGE
+  EXPIRED
+  LOST
+  FOUND
+  INTERNAL_USE
+  DONATION
+  SAMPLE
+  OTHER
+}
+
+enum PurchaseStatus {
+  DRAFT
+  PENDING
+  RECEIVED
+  CANCELLED
+}
+
+// NONE = not tracked below the variant level
+// BATCH = tracked via ProductBatch (expiry, lot numbers)
+// SERIAL = reserved for future SerialNumber model (IMEIs, asset tags, etc.)
+enum TrackingMode {
+  NONE
+  BATCH
+  SERIAL
+}
+
+enum TransferStatus {
+  DRAFT
+  PENDING
+  IN_TRANSIT
+  COMPLETED
+  CANCELLED
+}
+
+enum DocumentStatus {
+  DRAFT
+  PENDING
+  APPROVED
+  COMPLETED
+  CANCELLED
+}
+
+enum AdjustmentStatus {
+  DRAFT
+  APPROVED
+  CANCELLED
+}
+
+enum AdjustmentDirection {
+  IN
+  OUT
+}
+
+enum PaymentStatus {
+  PENDING
+  PARTIAL
+  PAID
+  REFUNDED
+}
+
+enum PaymentMethod {
+  CASH
+  CARD
+  TRANSFER
+  POS
+  MOBILE_MONEY
+  CREDIT
+  OTHER
+}
+
+enum SaleStatus {
+  DRAFT
+  COMPLETED
+  CANCELLED
+}

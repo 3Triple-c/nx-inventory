@@ -1,0 +1,19 @@
+model Supplier {
+  id String @id @default(cuid())
+
+  businessId String
+
+  name    String
+  email   String?
+  phone   String?
+  address String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  business Business @relation(fields: [businessId], references: [id])
+
+  purchases Purchase[]
+
+  @@index([businessId])
+}

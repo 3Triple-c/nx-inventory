@@ -1,0 +1,52 @@
+model Business {
+  id String @id @default(cuid())
+
+  name String
+
+  type   BusinessType
+  status BusinessStatus @default(ACTIVE)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  memberships Membership[]
+
+  warehouse Warehouse[]
+
+  categories Category[]
+
+  products Product[]
+
+  movements StockMovement[]
+
+  suppliers Supplier[]
+
+  purchases Purchase[]
+
+  sales Sale[]
+
+  customers Customer[]
+
+  transfers Transfer[]
+
+  adjustments Adjustment[]
+
+  units             Unit[]
+  productAttributes ProductAttribute[]
+}
+
+model Membership {
+  id String @id @default(cuid())
+
+  userId     String
+  businessId String
+
+  role UserRole
+
+  createdAt DateTime @default(now())
+
+  user     User     @relation(fields: [userId], references: [id])
+  business Business @relation(fields: [businessId], references: [id])
+
+  @@unique([userId, businessId])
+}

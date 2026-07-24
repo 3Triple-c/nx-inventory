@@ -8,9 +8,14 @@
     "build": "turbo build",
     "lint": "turbo lint",
     "typecheck": "turbo typecheck",
-    "clean": "turbo clean"
+    "clean": "turbo clean",
+    "db:generate": "pnpm --filter @nx-inventory/database generate",
+    "db:migrate": "pnpm --filter @nx-inventory/database migrate",
+    "db:deploy": "pnpm --filter @nx-inventory/database deploy",
+    "db:studio": "pnpm --filter @nx-inventory/database studio"
   },
   "devDependencies": {
+    "dotenv": "^17.4.2",
     "turbo": "^2.10.5",
     "typescript": "^5.9.3"
   }
