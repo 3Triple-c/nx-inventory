@@ -18,5 +18,9 @@
     "dotenv": "^17.4.2",
     "turbo": "^2.10.5",
     "typescript": "^5.9.3"
+  },
+  "dependencies": {
+    "@prisma/client": "^7.8.0",
+    "@prisma/client-runtime-utils": "^7.9.0"
   }
 }
