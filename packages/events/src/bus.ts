@@ -1,12 +1,17 @@
-import { EventEmitter } from 'node:events'
-import type { AppEvent, AppEventType } from './types'
+import { EventEmitter } from "node:events";
+import type { AppEvent, AppEventType } from "./types";
 
-export type EventHandler<E extends AppEvent = AppEvent> = (event: E) => void | Promise<void>
+export type EventHandler<E extends AppEvent = AppEvent> = (
+  event: E,
+) => void | Promise<void>;
 
 export interface EventBus {
-  emit(event: AppEvent): void
-  emitMany(events: readonly AppEvent[]): void
-  on<T extends AppEventType>(type: T, handler: EventHandler<Extract<AppEvent, { type: T }>>): void
+  emit(event: AppEvent): void;
+  emitMany(events: readonly AppEvent[]): void;
+  on<T extends AppEventType>(
+    type: T,
+    handler: EventHandler<Extract<AppEvent, { type: T }>>,
+  ): void;
 }
 
 /**
@@ -22,20 +27,20 @@ export interface EventBus {
  * not on Node's EventEmitter directly.
  */
 export function createInMemoryEventBus(): EventBus {
-  const emitter = new EventEmitter()
-  emitter.setMaxListeners(50)
+  const emitter = new EventEmitter();
+  emitter.setMaxListeners(50);
 
   return {
     emit(event) {
-      emitter.emit(event.type, event)
+      emitter.emit(event.type, event);
     },
     emitMany(events) {
-      for (const event of events) emitter.emit(event.type, event)
+      for (const event of events) emitter.emit(event.type, event);
     },
     on(type, handler) {
-      emitter.on(type, handler as EventHandler)
+      emitter.on(type, handler as EventHandler);
     },
-  }
+  };
 }
 
 /**
@@ -43,4 +48,4 @@ export function createInMemoryEventBus(): EventBus {
  * createInMemoryEventBus() yourself elsewhere, or emitters and subscribers
  * end up on different buses and events silently go nowhere.
  */
-export const eventBus: EventBus = createInMemoryEventBus()
+export const eventBus: EventBus = createInMemoryEventBus();

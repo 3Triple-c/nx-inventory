@@ -1,0 +1,96 @@
+// Verified against the actual output of `npx @better-auth/cli generate`
+// (better-auth v1.6.25) — not hand-guessed. Business-domain relations
+// (memberships, purchasesCreated, etc.) are merged back onto User; Better
+// Auth's generator doesn't know about those and won't touch them.
+//
+// @@map(...) lines are cosmetic (lowercase SQL table names) — optional,
+// doesn't affect how Better Auth queries through the Prisma adapter. Drop
+// them if you'd rather keep PascalCase table names consistent with the
+// rest of your schema.
+//
+// Re-run the CLI yourself before your first migration if you add plugins
+// later (e.g. two-factor, passkey) — they add their own fields/tables.
+
+model User {
+  id            String   @id
+  name          String
+  email         String
+  emailVerified Boolean  @default(false)
+  image         String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  sessions Session[]
+  accounts Account[]
+
+  // --- business-domain relations, unchanged from before ---
+  memberships Membership[]
+
+  stockMovements StockMovement[]
+
+  purchasesCreated Purchase[]
+  salesCreated     Sale[]
+  transfersCreated Transfer[]
+
+  adjustmentsCreated  Adjustment[] @relation("AdjustmentCreatedBy")
+  adjustmentsApproved Adjustment[] @relation("AdjustmentApprovedBy")
+
+  @@unique([email])
+  @@map("user")
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Delete this row to log someone out instantly — this is the
+  // revocation table that made database sessions the right call over JWTs.
+  @@unique([token])
+  @@index([userId])
+  @@map("session")
+}
+
+model Account {
+  id          String @id
+  accountId   String
+  providerId  String
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  // Only populated if you ever enable email/password alongside Google.
+  password String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([userId])
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([identifier])
+  @@map("verification")
+}

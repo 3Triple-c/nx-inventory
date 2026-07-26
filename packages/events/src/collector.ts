@@ -5,7 +5,7 @@ import type { EventBus } from './bus'
  * Use this inside a Prisma transaction to gather events as they occur,
  * WITHOUT emitting them yet. Once `prisma.$transaction(...)` resolves
  * successfully — meaning the commit actually happened — flush the
- * collected events to the bus.
+ * collected events to the bus.import {  Decimal} from '@prisma/client-runtime-utils'
  *
  * This matters because of a bug class that's easy to introduce otherwise:
  * if you emit an event mid-transaction and a subscriber reacts immediately
