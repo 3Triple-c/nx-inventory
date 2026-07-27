@@ -111,9 +111,6 @@ importers:
 
   packages/database:
     dependencies:
-      '@nx-inventory/inventory':
-        specifier: workspace:*
-        version: link:../inventory
       '@prisma/adapter-pg':
         specifier: ^7.8.0
         version: 7.9.0
