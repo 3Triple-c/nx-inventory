@@ -1,6 +1,12 @@
-import { PrismaClient } from '@prisma/client'
-import { PrismaPg } from '@prisma/adapter-pg'
+import { config } from "dotenv";
+import path from "node:path";
 
+config({
+  path: path.resolve(process.cwd(), "../../.env"),
+});
+
+import { PrismaClient } from "@prisma/client";
+import { PrismaPg } from "@prisma/adapter-pg";
 /**
  * Prisma 7 removed the built-in Rust query engine and requires an explicit
  * driver adapter — `new PrismaClient()` with no arguments throws:
@@ -8,6 +14,13 @@ import { PrismaPg } from '@prisma/adapter-pg'
  * to be provided to PrismaClient constructor."
  * https://pris.ly/d/client-constructor
  */
+
+if (!process.env.DATABASE_URL) {
+  throw new Error(
+    "DATABASE_URL was not loaded before Prisma client initialization",
+  );
+}
+
 const adapter = new PrismaPg({
   connectionString: process.env.DATABASE_URL,
   // The pg driver has no connection timeout by default — Prisma 6's old
@@ -15,22 +28,22 @@ const adapter = new PrismaPg({
   // unreachable DB hangs forever instead of failing fast.
   connectionTimeoutMillis: 5_000,
   max: 10,
-})
+});
 
 // Singleton across hot-reloads (dev) and across every package that imports
 // this — nothing else in the monorepo should call `new PrismaClient()`
 // directly, they should all import `prisma` from here.
-const globalForPrisma = globalThis as unknown as { prisma?: PrismaClient }
+const globalForPrisma = globalThis as unknown as { prisma?: PrismaClient };
 
 export const prisma =
   globalForPrisma.prisma ??
   new PrismaClient({
     adapter,
-    log: process.env.NODE_ENV === 'development' ? ['warn', 'error'] : ['error'],
-  })
+    log: process.env.NODE_ENV === "development" ? ["warn", "error"] : ["error"],
+  });
 
-if (process.env.NODE_ENV !== 'production') {
-  globalForPrisma.prisma = prisma
+if (process.env.NODE_ENV !== "production") {
+  globalForPrisma.prisma = prisma;
 }
 
 // Note for later, if you're on a managed Postgres host (Supabase, RDS, etc.)

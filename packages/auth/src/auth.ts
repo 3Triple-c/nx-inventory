@@ -1,7 +1,13 @@
 import { betterAuth } from 'better-auth'
 import { prismaAdapter } from 'better-auth/adapters/prisma'
 import { prisma } from '@nx-inventory/database'
+import { config } from 'dotenv'
+import path from 'node:path'
 
+
+config({
+  path: path.resolve(process.cwd(), '../../.env'),
+})
 /**
  * Deliberately NOT using the `organization` plugin. Business/Membership
  * already cover multi-tenancy — richer than a generic "organization,"
@@ -29,3 +35,8 @@ export const auth = betterAuth({
 })
 
 export type Auth = typeof auth
+
+console.log({
+  BETTER_AUTH_URL: process.env.BETTER_AUTH_URL,
+  GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
+});

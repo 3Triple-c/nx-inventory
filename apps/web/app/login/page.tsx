@@ -7,12 +7,13 @@ export default function LoginPage() {
     <main style={{ padding: 40 }}>
       <h1>Sign in</h1>
       <button
-        onClick={() =>
+        onClick={() => {
+          console.log("Clicked!");
           signIn.social({
             provider: "google",
-            callbackURL: "/", // where Google sends you back after success
-          })
-        }
+            callbackURL: "/",
+          });
+        }}
       >
         Sign in with Google
       </button>
