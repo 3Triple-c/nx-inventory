@@ -13,7 +13,8 @@
     "db:migrate": "pnpm --filter @nx-inventory/database migrate",
     "db:deploy": "pnpm --filter @nx-inventory/database deploy",
     "db:studio": "pnpm --filter @nx-inventory/database studio",
-    "db:reset": "pnpm --filter @nx-inventory/database reset"
+    "db:reset": "pnpm --filter @nx-inventory/database reset",
+    "postinstall": "pnpm --filter @nx-inventory/database generate"
   },
   "devDependencies": {
     "@types/node": "^20.19.43",
