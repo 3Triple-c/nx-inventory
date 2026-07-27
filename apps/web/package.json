@@ -9,6 +9,11 @@
     "lint": "eslint"
   },
   "dependencies": {
+    "@nx-inventory/auth": "workspace:*",
+    "@nx-inventory/database": "workspace:*",
+    "@nx-inventory/events": "workspace:*",
+    "@nx-inventory/inventory": "workspace:*",
+    "better-auth": "^1.6.25",
     "next": "16.2.10",
     "react": "19.2.4",
     "react-dom": "19.2.4"

@@ -4,5 +4,8 @@
   "type": "module",
   "exports": {
     ".": "./src/index.ts"
+  },
+   "dependencies": {
+    "@nx-inventory/events": "workspace:*"
   }
 }
