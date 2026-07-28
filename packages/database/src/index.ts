@@ -13,6 +13,8 @@ export {
   MovementType,
   ReferenceType,
   TrackingMode,
+  BusinessType,
+  UserRole,
 } from "@prisma/client";
 
 export { Decimal } from "@prisma/client-runtime-utils";
