@@ -1,7 +1,7 @@
-import type { BusinessType } from "@/lib/types/types";
+import type { BusinessTypeOption } from "@/lib/types/types";
 
 
-export const BUSINESS_TYPES: BusinessType[] = [
+export const BUSINESS_TYPES: BusinessTypeOption[] = [
   {
     value: "GENERIC",
     label: "General",

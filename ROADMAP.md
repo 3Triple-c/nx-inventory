@@ -28,7 +28,7 @@ box, you're not done, even if it feels close.
 - [x] Prisma 7 migration fully settled (Decimal import fixed; driver adapter
       and custom output path — deal with these if/when they actually break,
       per our last conversation)
-- [ ] Seed script (`packages/database/src/seed.ts`) with one fake business,
+- [X] Seed script (`packages/database/src/seed.ts`) with one fake business,
       a handful of products/variants (mix of BATCH and NONE tracking), a
       warehouse, a supplier, a customer — you'll reuse this constantly in
       every phase below, so it's worth 30 minutes now
