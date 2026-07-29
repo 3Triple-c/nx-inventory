@@ -2,8 +2,8 @@ import { getSession } from "@nx-inventory/auth";
 import { getUserBusinessContext } from "@nx-inventory/organisation";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { createBusinessAction } from "@/app/lib/actions";
-
+import { createBusinessAction } from "@/lib/actions";
+import { FieldSelect } from "@/components/auth/businesstypefield";
 export default async function OnboardingPage() {
   const session = await getSession(await headers());
   if (!session) {
@@ -27,19 +27,7 @@ export default async function OnboardingPage() {
           </label>
         </div>
         <div>
-          <label>
-            Business type
-            <select name="type" defaultValue="GENERIC">
-              <option value="GENERIC">General</option>
-              <option value="PHARMACY">Pharmacy</option>
-              <option value="SUPERMARKET">Supermarket</option>
-              <option value="RESTAURANT">Restaurant</option>
-              <option value="WAREHOUSE">Warehouse</option>
-              <option value="POULTRY">Poultry</option>
-              <option value="MANUFACTURING">Manufacturing</option>
-              {/* full list is in enums.prisma — add as needed */}
-            </select>
-          </label>
+          <FieldSelect />
         </div>
         <button type="submit">Create business</button>
       </form>

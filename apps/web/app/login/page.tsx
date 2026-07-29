@@ -1,12 +1,12 @@
 "use client";
 
 import { signIn } from "@nx-inventory/auth/client";
-
+import { Button } from "@/components/ui/button";
 export default function LoginPage() {
   return (
     <main style={{ padding: 40 }}>
       <h1>Sign in</h1>
-      <button
+      <Button
         onClick={() => {
           console.log("Clicked!");
           signIn.social({
@@ -16,7 +16,7 @@ export default function LoginPage() {
         }}
       >
         Sign in with Google
-      </button>
+      </Button>
     </main>
   );
 }
