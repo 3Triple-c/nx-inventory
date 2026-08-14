@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import "./globals.css";
+import ogimage from "@/OG.png";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -26,7 +27,7 @@ export const metadata: Metadata = {
     siteName: "nx-inventory",
     images: [
       {
-        url: "/OG.png",
+        url: ogimage.src,
         width: 1200,
         height: 630,
         alt: "nx-inventory — Simple inventory management",
@@ -39,7 +40,7 @@ export const metadata: Metadata = {
     title: "nx-inventory",
     description:
       "Manage products, stock, warehouses, purchases, and sales — without the complexity of a full ERP.",
-    images: ["/OG.png"],
+    images: [ogimage.src],
   },
 };
 
