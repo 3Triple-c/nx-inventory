@@ -5,7 +5,10 @@ model Sale {
   warehouseId String
   customerId  String?
 
-  saleNumber String @unique
+  saleNumber String 
+
+
+ @@unique([businessId, saleNumber])
 
   status   SaleStatus
   saleDate DateTime
