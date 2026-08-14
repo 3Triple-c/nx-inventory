@@ -177,9 +177,6 @@ importers:
         specifier: ^8.13.0
         version: 8.22.0
     devDependencies:
-      '@nx-inventory/inventory':
-        specifier: workspace:*
-        version: link:../inventory
       '@prisma/client-runtime-utils':
         specifier: 7.9.0
         version: 7.9.0
