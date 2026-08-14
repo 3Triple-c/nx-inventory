@@ -15,7 +15,32 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "nx-inventory",
-  description: "Minds of collins and jekwu",
+  description:
+    "A simple inventory management platform that helps businesses manage products, variants, stock, warehouses, purchases, and sales — without the complexity of a full ERP.",
+
+  openGraph: {
+    title: "nx-inventory",
+    description:
+      "Manage products, stock, warehouses, purchases, and sales — without the complexity of a full ERP.",
+    type: "website",
+    siteName: "nx-inventory",
+    images: [
+      {
+        url: "/OG.png",
+        width: 1200,
+        height: 630,
+        alt: "nx-inventory — Simple inventory management",
+      },
+    ],
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    title: "nx-inventory",
+    description:
+      "Manage products, stock, warehouses, purchases, and sales — without the complexity of a full ERP.",
+    images: ["/OG.png"],
+  },
 };
 
 export default function RootLayout({
