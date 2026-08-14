@@ -7,12 +7,12 @@ export type SelectOption = {
 }
 
 /**
- * A display option for a Prisma BusinessType value — NOT the schema type
+ * A display option for a Prisma BusinessType value - NOT the schema type
  * itself (that's PrismaBusinessType, imported above). Named "...Option"
  * deliberately: anything that wraps a schema enum/type with UI-only fields
  * (label, description, icon, etc.) should carry a suffix like Option,
  * ViewModel, or DTO so it can never collide with the real schema name, and
- * so its `value` field can be typed directly off the schema — see below —
+ * so its `value` field can be typed directly off the schema - see below -
  * instead of retyped by hand, which is what caused this in the first place.
  */
 export type BusinessTypeOption = {

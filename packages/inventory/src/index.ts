@@ -1,1 +1,2 @@
-export * from "./services/StockService";
+export * from "./services/stockService";
+export * from "./services/stockqueryService";

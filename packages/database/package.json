@@ -21,6 +21,7 @@
   "devDependencies": {
     "prisma": "7.9.0",
     "@types/pg": "^8.11.0",
-    "@prisma/client-runtime-utils": "7.9.0"
+    "@prisma/client-runtime-utils": "7.9.0",
+     "@nx-inventory/inventory":"workspace:*"
   }
 }

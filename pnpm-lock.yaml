@@ -51,6 +51,18 @@ importers:
       '@nx-inventory/organisation':
         specifier: workspace:*
         version: link:../../packages/organisation
+      '@nx-inventory/purchasing':
+        specifier: workspace:*
+        version: link:../../packages/purchasing
+      '@nx-inventory/sales':
+        specifier: workspace:*
+        version: link:../../packages/sales
+      '@nx-inventory/suppliers':
+        specifier: workspace:*
+        version: link:../../packages/suppliers
+      '@nx-inventory/warehouses':
+        specifier: workspace:*
+        version: link:../../packages/warehouses
       better-auth:
         specifier: ^1.6.25
         version: 1.6.25(@prisma/client@7.9.0(prisma@7.9.0(@types/react@19.2.17)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3))(typescript@5.9.3))(mysql2@3.15.3)(next@16.2.10(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.4(react@19.2.4))(react@19.2.4))(pg@8.22.0)(prisma@7.9.0(@types/react@19.2.17)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)(typescript@5.9.3))(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -165,6 +177,9 @@ importers:
         specifier: ^8.13.0
         version: 8.22.0
     devDependencies:
+      '@nx-inventory/inventory':
+        specifier: workspace:*
+        version: link:../inventory
       '@prisma/client-runtime-utils':
         specifier: 7.9.0
         version: 7.9.0
@@ -208,21 +223,49 @@ importers:
 
   packages/permissions: {}
 
-  packages/purchasing: {}
+  packages/purchasing:
+    devDependencies:
+      '@nx-inventory/database':
+        specifier: workspace:*
+        version: link:../database
+      '@nx-inventory/events':
+        specifier: workspace:*
+        version: link:../events
+      '@nx-inventory/inventory':
+        specifier: workspace:*
+        version: link:../inventory
 
-  packages/sales: {}
+  packages/sales:
+    devDependencies:
+      '@nx-inventory/database':
+        specifier: workspace:*
+        version: link:../database
+      '@nx-inventory/events':
+        specifier: workspace:*
+        version: link:../events
+      '@nx-inventory/inventory':
+        specifier: workspace:*
+        version: link:../inventory
 
   packages/sdk: {}
 
   packages/shared: {}
 
-  packages/suppliers: {}
+  packages/suppliers:
+    devDependencies:
+      '@nx-inventory/database':
+        specifier: workspace:*
+        version: link:../database
 
   packages/ui: {}
 
   packages/users: {}
 
-  packages/warehouses: {}
+  packages/warehouses:
+    devDependencies:
+      '@nx-inventory/database':
+        specifier: workspace:*
+        version: link:../database
 
 packages:
 

@@ -37,7 +37,7 @@ export function FieldSelect() {
       </Select>
 
       <FieldDescription>
-        Select the type of business you're setting up.
+        Select the type of business you&apos;re setting up.
       </FieldDescription>
     </Field>
   )

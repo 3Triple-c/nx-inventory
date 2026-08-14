@@ -15,6 +15,10 @@ export {
   TrackingMode,
   BusinessType,
   UserRole,
+  DocumentStatus,
+  PaymentStatus,
+  PaymentMethod,
+  SaleStatus,
 } from "@prisma/client";
 
 export { Decimal } from "@prisma/client-runtime-utils";

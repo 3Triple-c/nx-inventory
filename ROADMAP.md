@@ -28,7 +28,7 @@ box, you're not done, even if it feels close.
 - [x] Prisma 7 migration fully settled (Decimal import fixed; driver adapter
       and custom output path — deal with these if/when they actually break,
       per our last conversation)
-- [X] Seed script (`packages/database/src/seed.ts`) with one fake business,
+- [x] Seed script (`packages/database/src/seed.ts`) with one fake business,
       a handful of products/variants (mix of BATCH and NONE tracking), a
       warehouse, a supplier, a customer — you'll reuse this constantly in
       every phase below, so it's worth 30 minutes now
@@ -58,18 +58,18 @@ months. Phase 3 only adds the UI for switching between businesses and the
 invite flow — the scoping itself is a Phase 1 concern.
 
 **Backend (thin services, calling what you've already built):**
-- [ ] Auth: login/logout/session (`packages/auth`) — email+password is fine,
+- [x] Auth: login/logout/session (`packages/auth`) — email+password is fine changed to better auth,
       OAuth can wait
-- [ ] Organisation: create a Business, become its OWNER via Membership
-- [ ] Catalog: CRUD for Category, Product, ProductVariant, Unit,
+- [x] Organisation: create a Business, become its OWNER via Membership
+- [x] Catalog: CRUD for Category, Product, ProductVariant, Unit,
       ProductAttribute — including the trackingMode decision per variant
-- [ ] Warehouse: CRUD (single warehouse to start is fine, but don't hardcode
+- [x] Warehouse: CRUD (single warehouse to start is fine, but don't hardcode
       "only one" anywhere — the schema already supports many)
-- [ ] Purchasing: create a Purchase (DRAFT), add items, receive it (calls
+- [x] Purchasing: create a Purchase (DRAFT), add items, receive it (calls
       `applyStockMovement`, creates batches as needed)
-- [ ] Sales: create a Sale, add items, complete it (calls `consumeFefo` or
+- [x] Sales: create a Sale, add items, complete it (calls `consumeFefo` or
       `applyStockMovement`)
-- [ ] Stock queries: current stock by warehouse+variant, a simple "low
+- [x] Stock queries: current stock by warehouse+variant, a simple "low
       stock" list (reorderLevel comparison), batch expiry list
 
 **Frontend (`apps/web`) — functional over pretty:**

@@ -21,12 +21,6 @@ model Product {
   name        String
   description String?
 
-  // NOTE: this is a plain display label (e.g. "carton", "kg") separate from
-  // the Unit relation on ProductVariant. Decide if Product still needs its
-  // own unit label once every variant carries a real Unit — otherwise this
-  // is a second source of truth for the same idea and worth dropping.
-  unit String
-
   variants ProductVariant[]
 
   createdAt DateTime @default(now())
