@@ -5,7 +5,9 @@ model Purchase {
   supplierId  String
   warehouseId String
 
-  purchaseNumber String @unique
+  purchaseNumber String 
+ 
+ @@unique([businessId, purchaseNumber])
 
   status DocumentStatus @default(DRAFT)
 
