@@ -1,0 +1,56 @@
+model Return {
+  id String @id @default(cuid())
+
+  businessId  String
+  warehouseId String
+
+  direction ReturnDirection
+  status    DocumentStatus @default(DRAFT)
+
+  returnNumber String
+  @@unique([businessId, returnNumber])
+
+  // Only one of these is populated, depending on direction — enforced in
+  // the service layer, not the schema (Prisma has no XOR constraint).
+  saleId     String?
+  purchaseId String?
+
+  reason String?
+  note   String?
+
+  createdById String
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  business    Business  @relation(fields: [businessId], references: [id])
+  warehouse   Warehouse @relation(fields: [warehouseId], references: [id])
+  sale        Sale?     @relation(fields: [saleId], references: [id])
+  purchase    Purchase? @relation(fields: [purchaseId], references: [id])
+  createdBy User @relation("ReturnsCreatedBy", fields: [createdById], references: [id])
+
+  items ReturnItem[]
+
+  @@index([businessId, status])
+}
+
+model ReturnItem {
+  id String @id @default(cuid())
+
+  returnId  String
+  variantId String
+  batchId   String?
+
+  quantity Decimal
+  // Refund amount (CUSTOMER_RETURN) or credit amount (SUPPLIER_RETURN) —
+  // optional since not every return needs a monetary figure tracked yet
+  // (that's the Finance module's eventual job, not this one's).
+  unitPrice Decimal?
+
+  note String?
+
+  return  Return         @relation(fields: [returnId], references: [id])
+  variant ProductVariant @relation(fields: [variantId], references: [id])
+  batch   ProductBatch?  @relation(fields: [batchId], references: [id])
+
+  @@index([returnId])
+}

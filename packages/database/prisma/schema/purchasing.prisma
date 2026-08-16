@@ -27,6 +27,8 @@ model Purchase {
 
   items PurchaseItem[]
 
+  returns Return[]
+
   @@index([businessId, status])
 }
 

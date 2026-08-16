@@ -89,12 +89,12 @@ the morning, selling throughout the day, checking what's low before closing.
 
 **Goal:** the modules that make the platform usable beyond the happy path.
 
-- [ ] Transfers between warehouses (multi-warehouse becomes real here, not
+- [x] Transfers between warehouses (multi-warehouse becomes real here, not
       just schema-supported)
-- [ ] Adjustments (stock count corrections, damage, loss) with the approval
+- [x] Adjustments (stock count corrections, damage, loss) with the approval
       workflow (`approvedById`/`approvedAt`) actually enforced in the API,
       not just present in the schema
-- [ ] Returns — you have `RETURN_IN`/`RETURN_OUT` movement types in the enum
+- [x] Returns — you have `RETURN_IN`/`RETURN_OUT` movement types in the enum
       but no explicit Return model yet. Decide now: is a return a new model
       (`Return`/`ReturnItem`) referencing the original Sale/Purchase, or is
       it just another Adjustment with a specific type? I'd lean toward a

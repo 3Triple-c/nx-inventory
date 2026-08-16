@@ -34,6 +34,7 @@ model User {
 
   adjustmentsCreated  Adjustment[] @relation("AdjustmentCreatedBy")
   adjustmentsApproved Adjustment[] @relation("AdjustmentApprovedBy")
+  returnsCreated Return[] @relation("ReturnsCreatedBy")
 
   @@unique([email])
   @@map("user")

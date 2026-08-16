@@ -19,6 +19,11 @@ export {
   PaymentStatus,
   PaymentMethod,
   SaleStatus,
+  TransferStatus,
+  AdjustmentStatus,
+  AdjustmentType,
+  AdjustmentDirection,
+  ReturnDirection,
 } from "@prisma/client";
 
 export { Decimal } from "@prisma/client-runtime-utils";

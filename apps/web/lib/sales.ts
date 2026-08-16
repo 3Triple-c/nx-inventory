@@ -8,7 +8,7 @@ import {
   removeSaleItem,
   completeSale,
 } from "@nx-inventory/sales";
-import { PaymentMethod } from "@nx-inventory/database";
+import { prisma, PaymentMethod } from "@nx-inventory/database";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
@@ -27,11 +27,29 @@ export async function createSaleAction(formData: FormData) {
   const { session, business } = await requireBusinessAndSession();
 
   const warehouseId = String(formData.get("warehouseId") ?? "");
+  const customerId =
+    String(formData.get("customerId") ?? "").trim() || undefined;
   if (!warehouseId) throw new Error("Warehouse is required");
+
+  // Never trust a client-submitted ID at face value — confirm this
+  // customer actually belongs to the current business before attaching a
+  // sale to it. Without this, a tampered form could attribute a sale to
+  // another business's customer: exactly the cross-tenant leak the
+  // businessId-scoping rule exists to prevent.
+  if (customerId) {
+    const customer = await prisma.customer.findFirst({
+      where: { id: customerId, businessId: business.businessId },
+      select: { id: true },
+    });
+    if (!customer) {
+      throw new Error("Selected customer does not belong to this business.");
+    }
+  }
 
   const sale = await createSale({
     businessId: business.businessId,
     warehouseId,
+    customerId,
     createdById: session.user.id,
   });
 

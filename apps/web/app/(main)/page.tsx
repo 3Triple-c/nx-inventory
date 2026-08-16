@@ -20,12 +20,25 @@ const modules = [
   {
     title: "Sales",
     href: "/sales",
-    description: "Draft and complete sales while stock movements stay traceable.",
+    description:
+      "Draft and complete sales while stock movements stay traceable.",
   },
   {
     title: "Stock",
     href: "/stock",
     description: "Review stock levels, low-stock items, and expiring batches.",
+  },
+  {
+    title: "Transfers",
+    href: "/transfers",
+    description:
+      "Transfer stock between warehouses and track inventory movement.",
+  },
+  {
+    title: "Adjustments",
+    href: "/adjustments",
+    description:
+      "Fix stock counts and record inventory changes with a clear approval trail.",
   },
 ];
 

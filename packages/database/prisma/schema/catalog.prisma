@@ -69,6 +69,7 @@ model ProductBatch {
   adjustmentItems AdjustmentItem[]
   purchaseItems   PurchaseItem[]
   stockMovements  StockMovement[]
+  returnItems ReturnItem[]
 
   @@unique([warehouseId, variantId, batchNumber])
   @@index([expiryDate])
@@ -110,6 +111,7 @@ model ProductVariant {
   purchaseItems PurchaseItem[]
   saleItems     SaleItem[]
   transferItems TransferItem[]
+  returnItems ReturnItem[]
 
   attributeValues VariantAttributeValue[]
   prices          ProductPrice[]

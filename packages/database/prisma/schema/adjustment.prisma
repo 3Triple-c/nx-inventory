@@ -4,7 +4,10 @@ model Adjustment {
   businessId  String
   warehouseId String
 
-  adjustmentNumber String @unique
+  adjustmentNumber String 
+
+  @@unique([businessId, adjustmentNumber])
+
 
   type   AdjustmentType
   status AdjustmentStatus @default(DRAFT)
@@ -38,6 +41,14 @@ model AdjustmentItem {
 
   quantity  Decimal
   direction AdjustmentDirection
+   // Only relevant for direction=IN on a BATCH-tracked variant with no
+  // existing batchId — e.g. a FOUND adjustment for stock that isn't
+  // sitting in any known batch yet. A new ProductBatch is created from
+  // these at approval time. OUT-direction items always reference an
+  // existing batch via batchId instead, since you can't remove stock from
+  // a batch that was never recorded.
+  batchNumber String?
+  expiryDate  DateTime?
 
   note String?
 

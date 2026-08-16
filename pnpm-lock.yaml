@@ -39,6 +39,9 @@ importers:
       '@nx-inventory/catalog':
         specifier: workspace:*
         version: link:../../packages/catalog
+      '@nx-inventory/customers':
+        specifier: workspace:*
+        version: link:../../packages/customers
       '@nx-inventory/database':
         specifier: workspace:*
         version: link:../../packages/database
@@ -163,7 +166,11 @@ importers:
 
   packages/config: {}
 
-  packages/customers: {}
+  packages/customers:
+    devDependencies:
+      '@nx-inventory/database':
+        specifier: workspace:*
+        version: link:../database
 
   packages/database:
     dependencies:

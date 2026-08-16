@@ -35,6 +35,8 @@ model Sale {
 
   items SaleItem[]
 
+  returns Return[]
+
   @@index([businessId, status])
   @@index([saleDate])
 }

@@ -33,6 +33,8 @@ model Business {
 
   units             Unit[]
   productAttributes ProductAttribute[]
+
+  returns Return[]
 }
 
 model Membership {

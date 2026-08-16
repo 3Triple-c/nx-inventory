@@ -1,4 +1,4 @@
-import { prisma } from '@nx-inventory/database'
+import { prisma } from "@nx-inventory/database";
 
 /**
  * Read-only by design — kept out of StockService on purpose, mirroring the
@@ -8,6 +8,49 @@ import { prisma } from '@nx-inventory/database'
  * already there.
  */
 
+/**
+ * For pickers that need "which batches of this variant actually have stock
+ * at this specific warehouse" — e.g. Transfer's batch selection, since
+ * transferring moves a specific existing batch, not FEFO-consumes across
+ * several like a sale would.
+ */
+/**
+ * All in-stock batches at one warehouse, across every variant — used to
+ * build a single flat picker for Transfer's batch selection, rather than
+ * needing a dependent "pick variant, then pick batch" dropdown pair.
+ */
+export async function getAvailableBatchesForWarehouse(warehouseId: string) {
+  return prisma.productBatch.findMany({
+    where: { warehouseId, quantity: { gt: 0 } },
+    include: { variant: { include: { unit: true, product: true } } },
+    orderBy: { expiryDate: "asc" },
+  });
+}
+
+export async function getAvailableBatches(
+  warehouseId: string,
+  variantId: string,
+) {
+  return prisma.productBatch.findMany({
+    where: { warehouseId, variantId, quantity: { gt: 0 } },
+    orderBy: { expiryDate: "asc" },
+  });
+}
+
+/**
+ * ALL batches at a warehouse, including ones currently at zero — unlike
+ * getAvailableBatchesForWarehouse, this is for pickers where adding stock
+ * BACK to a previously-emptied batch is valid (an IN-direction Adjustment,
+ * e.g. correcting a stock count upward).
+ */
+export async function getAllBatchesForWarehouse(warehouseId: string) {
+  return prisma.productBatch.findMany({
+    where: { warehouseId },
+    include: { variant: { include: { unit: true, product: true } } },
+    orderBy: { batchNumber: "asc" },
+  });
+}
+
 export async function getStockLevels(businessId: string) {
   return prisma.stock.findMany({
     where: { warehouse: { businessId } },
@@ -15,8 +58,8 @@ export async function getStockLevels(businessId: string) {
       warehouse: true,
       variant: { include: { unit: true, product: true } },
     },
-    orderBy: { variant: { product: { name: 'asc' } } },
-  })
+    orderBy: { variant: { product: { name: "asc" } } },
+  });
 }
 
 /**
@@ -36,9 +79,11 @@ export async function getLowStockItems(businessId: string) {
       warehouse: true,
       variant: { include: { unit: true, product: true } },
     },
-  })
+  });
 
-  return stocks.filter((s) => s.reorderLevel != null && s.quantity.lte(s.reorderLevel))
+  return stocks.filter(
+    (s) => s.reorderLevel != null && s.quantity.lte(s.reorderLevel),
+  );
 }
 
 /**
@@ -46,7 +91,7 @@ export async function getLowStockItems(businessId: string) {
  * an already-empty expired batch isn't actionable, so it's excluded.
  */
 export async function getExpiringBatches(businessId: string, daysAhead = 30) {
-  const cutoff = new Date(Date.now() + daysAhead * 24 * 60 * 60 * 1000)
+  const cutoff = new Date(Date.now() + daysAhead * 24 * 60 * 60 * 1000);
 
   return prisma.productBatch.findMany({
     where: {
@@ -58,6 +103,6 @@ export async function getExpiringBatches(businessId: string, daysAhead = 30) {
       warehouse: true,
       variant: { include: { unit: true, product: true } },
     },
-    orderBy: { expiryDate: 'asc' },
-  })
+    orderBy: { expiryDate: "asc" },
+  });
 }

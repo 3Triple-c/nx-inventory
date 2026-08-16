@@ -40,29 +40,33 @@ export default async function SaleDetailPage({
   ]);
 
   const isDraft = sale.status === "DRAFT";
-  const runningTotal = sale.items.reduce((sum, item) => sum + Number(item.total), 0);
+  const runningTotal = sale.items.reduce((sum, i) => sum + Number(i.total), 0);
 
   return (
     <PageContainer>
-      <PageHeader
-        title={sale.saleNumber}
-        description={`Status: ${sale.status} - ${sale.warehouse.name}${sale.status === "COMPLETED" ? ` - Paid via ${sale.paymentMethod}` : ""}`}
-        backHref="/sales"
-        backLabel="Sales"
-      />
+      <PageHeader title={sale.saleNumber} backHref="/sales" backLabel="Sales" />
+      <p className="text-sm text-gray-500">
+        Status: <strong>{sale.status}</strong> — {sale.warehouse.name} —{" "}
+        {sale.customer ? sale.customer.name : "Walk-in (no customer)"}
+        {sale.status === "COMPLETED" && ` — Paid via ${sale.paymentMethod}`}
+      </p>
 
       <Section title="Items">
-        {sale.items.length === 0 && <EmptyState>No items yet - add one below.</EmptyState>}
+        {sale.items.length === 0 && (
+          <EmptyState>No items yet — add one below.</EmptyState>
+        )}
         <div className="space-y-2">
           {sale.items.map((item) => (
-            <Card key={item.id} className="space-y-2">
-              <div className="flex items-start justify-between gap-3">
+            <Card key={item.id}>
+              <div className="flex justify-between items-center">
                 <div>
                   <div className="font-medium">{item.variant.name}</div>
-                  <div className="text-sm text-muted-foreground">
-                    {Number(item.quantity)} {item.variant.unit.symbol} @ NGN {Number(item.unitPrice)}
-                    {Number(item.discount) > 0 && ` - NGN ${Number(item.discount)} discount`} = NGN{" "}
-                    {Number(item.total)}
+                  <div className="text-sm text-gray-500">
+                    {Number(item.quantity)} {item.variant.unit.symbol} @ ₦
+                    {Number(item.unitPrice)}
+                    {Number(item.discount) > 0 &&
+                      ` − ₦${Number(item.discount)} discount`}{" "}
+                    = ₦{Number(item.total)}
                   </div>
                 </div>
                 {isDraft && (
@@ -78,7 +82,7 @@ export default async function SaleDetailPage({
             </Card>
           ))}
         </div>
-        <p className="text-sm font-medium">Running total: NGN {runningTotal}</p>
+        <p className="text-sm font-medium">Running total: ₦{runningTotal}</p>
       </Section>
 
       {isDraft && (
@@ -93,8 +97,8 @@ export default async function SaleDetailPage({
                 {products.flatMap((p) =>
                   p.variants.map((v) => (
                     <option key={v.id} value={v.id}>
-                      {p.name} - {v.name} ({v.unit.symbol})
-                      {v.price ? ` - NGN ${Number(v.price)}` : ""}
+                      {p.name} — {v.name} ({v.unit.symbol})
+                      {v.price ? ` — ₦${Number(v.price)}` : ""}
                     </option>
                   )),
                 )}
@@ -107,7 +111,12 @@ export default async function SaleDetailPage({
               <Input name="unitPrice" type="number" step="0.01" required />
             </Field>
             <Field label="Discount (optional)">
-              <Input name="discount" type="number" step="0.01" defaultValue="0" />
+              <Input
+                name="discount"
+                type="number"
+                step="0.01"
+                defaultValue="0"
+              />
             </Field>
             <Button type="submit">Add item</Button>
           </form>
@@ -128,7 +137,7 @@ export default async function SaleDetailPage({
                 <option value="CREDIT">Credit</option>
               </Select>
             </Field>
-            <Button type="submit">Complete sale</Button>
+            <Button type="submit">Complete sale (updates stock)</Button>
           </form>
         </Section>
       )}

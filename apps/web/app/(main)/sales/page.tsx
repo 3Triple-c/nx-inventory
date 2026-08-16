@@ -4,7 +4,13 @@ import { listSales } from "@nx-inventory/sales";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import Link from "next/link";
-import { PageContainer, PageHeader, Card, EmptyState, Button } from "@/components/ui";
+import {
+  PageContainer,
+  PageHeader,
+  Card,
+  EmptyState,
+  Button,
+} from "@/components/ui";
 
 export default async function SalesPage() {
   const session = await getSession(await headers());
@@ -17,31 +23,26 @@ export default async function SalesPage() {
 
   return (
     <PageContainer>
-      <PageHeader
-        title="Sales"
-        description="Start draft sales, add line items, and complete transactions against live stock."
-        actions={
-          <Link href="/sales/new">
-            <Button>New sale</Button>
-          </Link>
-        }
-      />
+      <PageHeader title="Sales" backHref="/" backLabel="Home" />
+
+      <Link href="/sales/new">
+        <Button>+ New sale</Button>
+      </Link>
 
       {sales.length === 0 && <EmptyState>No sales yet.</EmptyState>}
 
       <div className="space-y-3">
         {sales.map((s) => (
           <Link key={s.id} href={`/sales/${s.id}`}>
-            <Card className="space-y-2 transition-colors hover:border-primary/40 hover:bg-accent/40">
-              <div className="flex items-center justify-between gap-3">
+            <Card>
+              <div className="flex justify-between">
                 <span className="font-medium">{s.saleNumber}</span>
-                <span className="rounded-md bg-secondary px-2 py-1 text-xs font-medium text-secondary-foreground">
-                  {s.status}
-                </span>
+                <span className="text-sm text-gray-500">{s.status}</span>
               </div>
-              <div className="text-sm text-muted-foreground">
-                {s.warehouse.name} - {s.items.length} item(s)
-                {s.status === "COMPLETED" && ` - NGN ${Number(s.total)}`}
+              <div className="text-sm text-gray-500">
+                {s.warehouse.name} — {s.customer ? s.customer.name : "Walk-in"}{" "}
+                — {s.items.length} item(s)
+                {s.status === "COMPLETED" && ` — ₦${Number(s.total)}`}
               </div>
             </Card>
           </Link>

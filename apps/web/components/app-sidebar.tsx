@@ -11,6 +11,10 @@ import {
   ShoppingCart,
   Tags,
   Warehouse,
+  ArrowRightLeft,
+  Columns3Cog,
+  Redo2,
+  Users,
 } from "lucide-react";
 import { Logo } from "@/components/logo";
 import { SignOutButton } from "@/components/auth/signoutbutton";
@@ -54,6 +58,10 @@ const sections = [
       { title: "Purchasing", href: "/purchasing", icon: ShoppingCart },
       { title: "Suppliers", href: "/purchasing/suppliers", icon: Tags },
       { title: "Sales", href: "/sales", icon: Receipt },
+      { title: "Transfers", href: "/transfers", icon: ArrowRightLeft },
+      { title: "Adjustments", href: "/adjustments", icon: Columns3Cog },
+      { title: "Returns", href: "/returns", icon: Redo2 },
+      { title: "Customers", href: "/customers", icon: Users },
     ],
   },
 ];
@@ -124,12 +132,18 @@ export function AppSidebar({
               </SidebarMenuSubButton>
             </SidebarMenuSubItem>
             <SidebarMenuSubItem>
-              <SidebarMenuSubButton asChild isActive={pathname === "/purchasing/new"}>
+              <SidebarMenuSubButton
+                asChild
+                isActive={pathname === "/purchasing/new"}
+              >
                 <Link href="/purchasing/new">Purchase</Link>
               </SidebarMenuSubButton>
             </SidebarMenuSubItem>
             <SidebarMenuSubItem>
-              <SidebarMenuSubButton asChild isActive={pathname === "/sales/new"}>
+              <SidebarMenuSubButton
+                asChild
+                isActive={pathname === "/sales/new"}
+              >
                 <Link href="/sales/new">Sale</Link>
               </SidebarMenuSubButton>
             </SidebarMenuSubItem>

@@ -138,3 +138,8 @@ enum SaleStatus {
   COMPLETED
   CANCELLED
 }
+
+enum ReturnDirection {
+  CUSTOMER_RETURN
+  SUPPLIER_RETURN
+}

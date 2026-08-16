@@ -5,7 +5,9 @@ model Transfer {
   fromWarehouseId String
   toWarehouseId   String
 
-  transferNumber String @unique
+  transferNumber String
+
+  @@unique([businessId, transferNumber])
 
   status TransferStatus @default(DRAFT)
 
