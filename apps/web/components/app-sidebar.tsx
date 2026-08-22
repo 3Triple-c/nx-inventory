@@ -15,6 +15,8 @@ import {
   Columns3Cog,
   Redo2,
   Users,
+  Bell,
+  BellDot,
 } from "lucide-react";
 import { Logo } from "@/components/logo";
 import { SignOutButton } from "@/components/auth/signoutbutton";
@@ -62,6 +64,7 @@ const sections = [
       { title: "Adjustments", href: "/adjustments", icon: Columns3Cog },
       { title: "Returns", href: "/returns", icon: Redo2 },
       { title: "Customers", href: "/customers", icon: Users },
+      { title: "Notifications", href: "/notifications", icon: Bell },
     ],
   },
 ];

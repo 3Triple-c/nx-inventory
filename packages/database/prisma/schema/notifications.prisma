@@ -1,0 +1,24 @@
+model Notification {
+  id String @id @default(cuid())
+
+  businessId String
+
+  // Matches an AppEventType from @nx-inventory/events (e.g.
+  // "stock.below_reorder_level") — kept as a plain string rather than an
+  // enum so new event types don't need a schema migration to notify on.
+  type String
+
+  message String
+  // Where clicking the notification should take you, e.g. "/stock" or
+  // "/purchasing/abc123" — optional since not every notification links
+  // somewhere useful yet.
+  link String?
+
+  read Boolean @default(false)
+
+  createdAt DateTime @default(now())
+
+  business Business @relation(fields: [businessId], references: [id])
+
+  @@index([businessId, read])
+}

@@ -6,6 +6,7 @@
     ".": "./src/index.ts"
   },
   "dependencies": {
-    "@nx-inventory/events": "workspace:*"
+    "@nx-inventory/events": "workspace:*",
+    "@nx-inventory/database": "workspace:*"
   }
 }

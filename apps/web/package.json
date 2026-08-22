@@ -15,6 +15,7 @@
     "@nx-inventory/events": "workspace:*",
     "@nx-inventory/inventory": "workspace:*",
     "@nx-inventory/organisation": "workspace:*",
+    "@nx-inventory/notifications": "workspace:*",
     "@nx-inventory/purchasing": "workspace:*",
     "@nx-inventory/sales": "workspace:*",
     "@nx-inventory/suppliers": "workspace:*",

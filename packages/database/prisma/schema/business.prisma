@@ -35,6 +35,8 @@ model Business {
   productAttributes ProductAttribute[]
 
   returns Return[]
+
+  notifications Notification[]
 }
 
 model Membership {
