@@ -12,6 +12,7 @@ import { prisma, ReturnDirection } from "@nx-inventory/database";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
+import { processEvents } from "@nx-inventory/notifications";
 
 async function requireBusinessAndSession() {
   const session = await getSession(await headers());
@@ -113,5 +114,7 @@ export async function completeReturnAction(formData: FormData) {
   const { session } = await requireBusinessAndSession();
   const returnId = String(formData.get("returnId") ?? "");
   await completeReturn(returnId, session.user.id);
+  const result = await completeReturn(returnId, session.user.id);
+  await processEvents(result.events);
   revalidatePath(`/returns/${returnId}`);
 }

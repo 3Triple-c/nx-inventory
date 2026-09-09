@@ -7,6 +7,11 @@ export async function createNotification(params: {
   message: string
   link?: string
 }) {
+  console.log("[notifications] creating notification", {
+    businessId: params.businessId,
+    type: params.type,
+    link: params.link,
+  })
   return prisma.notification.create({
     data: {
       businessId: params.businessId,

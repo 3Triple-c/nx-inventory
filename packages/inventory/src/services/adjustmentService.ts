@@ -8,7 +8,7 @@ import {
   ReferenceType,
 } from "@nx-inventory/database";
 import { applyStockMovement } from "./stockService";
-import { EventCollector, eventBus } from "@nx-inventory/events";
+import { EventCollector } from "@nx-inventory/events";
 
 export class AdjustmentNotDraftError extends Error {}
 export class InsufficientPermissionError extends Error {}
@@ -267,6 +267,5 @@ export async function approveAdjustment(
     { timeout: 20_000, maxWait: 10_000 },
   );
 
-  events.flush(eventBus);
-  return result;
+ return { adjustment: result, events: events.getAll() }
 }

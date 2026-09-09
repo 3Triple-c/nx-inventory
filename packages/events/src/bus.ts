@@ -6,8 +6,8 @@ export type EventHandler<E extends AppEvent = AppEvent> = (
 ) => void | Promise<void>;
 
 export interface EventBus {
-  emit(event: AppEvent): void;
-  emitMany(events: readonly AppEvent[]): void;
+  emit(event: AppEvent): Promise<void>;
+  emitMany(events: readonly AppEvent[]): Promise<void>;
   on<T extends AppEventType>(
     type: T,
     handler: EventHandler<Extract<AppEvent, { type: T }>>,
@@ -31,11 +31,15 @@ export function createInMemoryEventBus(): EventBus {
   emitter.setMaxListeners(50);
 
   return {
-    emit(event) {
-      emitter.emit(event.type, event);
+    async emit(event) {
+      const handlers = emitter.listeners(event.type);
+      await Promise.all(handlers.map((handler) => handler(event)));
     },
-    emitMany(events) {
-      for (const event of events) emitter.emit(event.type, event);
+
+    async emitMany(events) {
+      for (const event of events) {
+        await this.emit(event);
+      }
     },
     on(type, handler) {
       emitter.on(type, handler as EventHandler);

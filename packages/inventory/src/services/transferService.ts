@@ -5,7 +5,7 @@ import {
   ReferenceType,
 } from "@nx-inventory/database";
 import { applyStockMovement } from "./stockService";
-import { EventCollector, eventBus } from "@nx-inventory/events";
+import { EventCollector } from "@nx-inventory/events";
 
 export class TransferNotDraftError extends Error {}
 export class BatchRequiredForTransferError extends Error {}
@@ -220,6 +220,5 @@ export async function completeTransfer(
     { timeout: 20_000, maxWait: 10_000 },
   );
 
-  events.flush(eventBus);
-  return result;
+  return { transfer: result, events: events.getAll() };
 }

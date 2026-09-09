@@ -1,2 +1,2 @@
 export * from './services/notificationService'
-export * from './registerHandlers'
+export * from './processEvents'

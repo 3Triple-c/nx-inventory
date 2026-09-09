@@ -6,7 +6,7 @@ import {
   ReferenceType,
 } from "@nx-inventory/database";
 import { applyStockMovement } from "./stockService";
-import { EventCollector, eventBus } from "@nx-inventory/events";
+import { EventCollector } from "@nx-inventory/events";
 
 export class ReturnNotDraftError extends Error {}
 export class BatchRequiredForReturnError extends Error {}
@@ -199,6 +199,5 @@ export async function completeReturn(returnId: string, performedById: string) {
     { timeout: 20_000, maxWait: 10_000 },
   );
 
-  events.flush(eventBus);
-  return result;
+  return { returnRecord: result, events: events.getAll() };
 }

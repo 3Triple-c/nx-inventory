@@ -13,6 +13,7 @@ import { AdjustmentType, AdjustmentDirection } from "@nx-inventory/database";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
+import { processEvents } from "@nx-inventory/notifications";
 
 async function requireBusinessAndSession() {
   const session = await getSession(await headers());
@@ -98,6 +99,8 @@ export async function approveAdjustmentAction(formData: FormData) {
   // row — this call can't be trusted into approving just because the
   // button was visible; the service is the actual gate.
   await approveAdjustment(adjustmentId, session.user.id);
+  const result = await approveAdjustment(adjustmentId, session.user.id);
+  await processEvents(result.events);
   revalidatePath(`/adjustments/${adjustmentId}`);
 }
 

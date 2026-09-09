@@ -5,7 +5,7 @@ import {
   ReferenceType,
 } from "@nx-inventory/database";
 import { applyStockMovement } from "@nx-inventory/inventory";
-import { EventCollector, eventBus } from "@nx-inventory/events";
+import { EventCollector } from "@nx-inventory/events";
 
 export class PurchaseNotDraftError extends Error {}
 
@@ -202,6 +202,5 @@ export async function receivePurchase(
     { timeout: 20_000, maxWait: 10_000 }, // same reasoning as the seed script's transaction
   );
 
-  events.flush(eventBus);
-  return result;
+  return { purchase: result, events: events.getAll() }
 }

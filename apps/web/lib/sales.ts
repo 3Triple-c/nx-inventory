@@ -9,6 +9,7 @@ import {
   completeSale,
 } from "@nx-inventory/sales";
 import { prisma, PaymentMethod } from "@nx-inventory/database";
+import { processEvents } from "@nx-inventory/notifications";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { revalidatePath } from "next/cache";
@@ -90,6 +91,15 @@ export async function completeSaleAction(formData: FormData) {
     formData.get("paymentMethod") ?? "CASH",
   ) as PaymentMethod;
 
-  await completeSale({ saleId, performedById: session.user.id, paymentMethod });
+  const result = await completeSale({
+    saleId,
+    performedById: session.user.id,
+    paymentMethod,
+  });
+  // Directly called here, same function, same module graph — this is the
+  // fix for the eventBus-across-module-boundaries issue. See processEvents'
+  // doc comment for the full explanation.
+  await processEvents(result.events);
+
   revalidatePath(`/sales/${saleId}`);
 }

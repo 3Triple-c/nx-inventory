@@ -1,5 +1,5 @@
-import type { AppEvent } from './types'
-import type { EventBus } from './bus'
+import type { AppEvent } from "./types";
+import type { EventBus } from "./bus";
 
 /**
  * Use this inside a Prisma transaction to gather events as they occur,
@@ -36,21 +36,21 @@ import type { EventBus } from './bus'
  *
  *   // Only reached if the transaction committed successfully — if
  *   // $transaction throws, this line never runs and nothing was emitted.
- *   collector.flush(eventBus)
+ *   collector.getAll()
  */
 export class EventCollector {
-  private events: AppEvent[] = []
+  private events: AppEvent[] = [];
 
   add(event: AppEvent): void {
-    this.events.push(event)
+    this.events.push(event);
   }
 
   getAll(): readonly AppEvent[] {
-    return this.events
+    return this.events;
   }
 
-  flush(bus: Pick<EventBus, 'emitMany'>): void {
-    bus.emitMany([...this.events])
-    this.events = []
+  async flush(bus: Pick<EventBus, "emitMany">): Promise<void> {
+    await bus.emitMany([...this.events]);
+    this.events = [];
   }
 }
